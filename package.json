@@ -38,7 +38,8 @@
     "lint:format": "eslint . --ext ts,tsx,js,jsx --fix && prettier --write .",
     "package-check": "npx package-check",
     "prepublishOnly": "npm run build",
-    "test": "npm run lint && npm run build && npx jest && npm run package-check",
+    "test": "npm run lint && npm run type-check && npm run build && npx jest && npm run package-check",
+    "type-check": "tsc --noEmit",
     "watch": "npx jest --watch"
   },
   "prettier": {
