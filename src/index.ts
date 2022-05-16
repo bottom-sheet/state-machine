@@ -23,8 +23,6 @@ export {
   defaultSnapPoints,
 }
 
-export { interpret } from 'xstate'
-
 export type BottomSheetEvent =
   | { type: 'OPEN' }
   | { type: 'INITIALLY_OPEN' }
@@ -43,7 +41,6 @@ export type BottomSheetEvent =
   | { type: 'SET_HEADER_HEIGHT'; payload: { headerHeight: number } }
   | { type: 'SET_CONTENT_HEIGHT'; payload: { contentHeight: number } }
   | { type: 'SET_FOOTER_HEIGHT'; payload: { footerHeight: number } }
-  | { type: 'SET_MAX_CONTENT'; payload: { maxContent: number } }
 
 export interface BottomSheetContext {
   // basically the "current snap point"
