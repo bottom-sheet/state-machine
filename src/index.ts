@@ -21,7 +21,7 @@ export {
   defaultSnapPoints,
 }
 
-export type SheetEvent =
+export type BottomSheetEvent =
   | { type: 'OPEN' }
   | { type: 'INITIALLY_OPEN' }
   | { type: 'AUTOFOCUS' }
@@ -41,7 +41,7 @@ export type SheetEvent =
   | { type: 'SET_FOOTER_HEIGHT'; payload: { footerHeight: number } }
   | { type: 'SET_MAX_CONTENT'; payload: { maxContent: number } }
 
-export interface SheetContext {
+export interface BottomSheetContext {
   // basically the "current snap point"
   // input: SET_HEIGHT, payload number, selects nearest snap point, is zero while 'closed' and 'opening.waiting', non-zero after 'opening.waiting.leave'
   height: number
@@ -73,7 +73,7 @@ export interface SheetContext {
   maxHeight: number
 }
 
-export const sheetMachine =
+export const BottomSheetMachine =
   /** @xstate-layout N4IgpgJg5mDOIC5QGUAWYwBcB0BjANgPayQDEA8gAoCiAcoqAA7ECWmLhAdgyAB6IBGAJwB2bABZxQgEwCRABnnShkgKyqANCACeg+aoBs2AeJGmF06fIP6Avra1oMOAsTIBJWu4Aq7gIIAMgEAmgD6VHQ8zLBsHNxIfIICAMzYZoryIqri0qq50lq6CAICAByq2EJCAjbWyWUC8qX2juhY2ISMYJzYLJyxAIb4+NqkAErUfgAiwVGs7Fw8-AiqyRXJ4gbJBiJlKiIbhYiWm9irWSK51aUC0i0gTu2d3R1d-ZxQ2ADuA7Ef45MZnMYgt4qBlqUhPJsJDktI4ZDbiJSqUjghqhUDAJsupdslkkJSsl7o8cM8euS+p8fn8oKQ-ABVbzkABi5AAwgzkMDYosEhCoTChHCEdVpMjUTpECJqsYrIp8dJNkS7g4Hm0yW9Xt0qdgBgBXTCEABmhFw+pi-wm01mCWivLBiWKsiM0iJN2xyVKIhsyTRMoEcoyiuVcJJGu1FLeuoG-QAtgN2P8IrRqFMeaClohxKs0iIDuITHsZAY0WVxNDMqJbpYhKpLgZw85I5GY-HE1TSFMxn4AOIZuJZ4p5aGrVQpNaNAySNEGGQwsxzgyIpr4ptPLWUj569tJunIWh+SgDvng7NbPMFouQktlr2Yr1VKRNTb19eal4AJzge67Pf7drzIO-KIFs4iVMulzyGUBiwViZZQWcKImNB9a3Js74tt+sC-hMyDuAAWtQJ6OssOapPmV6Fje0illKxR1kIZy7G64jJEoHGNmqpJYT+nYHkeJFDlC4GmASWRNGYCh0UUwg1DCUi0ViAYlKomHktgECfgMUBQJ23Z9r2aZCSBCBgRB3pWDBcECGWOzSNgNjjgSTlKsS3ERhpWk6Xp-wCcegEgsBZ5mUqFlQdZsG2fRNRhQYlgpFCqzbNi6lathLAAF6dnhhHGYFDpDoWFH5hs15VLRaJWDK2DWG6hjJGYypqR5zYaRl2V+YeAVMEBp5OhWJVUcWlX0bI4q1ZsGTjsK04ta0bXpXAWX6f+JkhdijRnJO+LjtYM70cKgblKVSmPmurUbi8sCcAMjCMPx3U0OmBWZqZIkSAcoiqJJpjWGWQjTjCcKFvIIOKJcaXXbd92rX261Oli4GA5Z0GlHB8ExT9FQpPIUjjqUkh1FDPSuJadLsgE5DIPlvVBf1yzCGIkgyHIijKGomj0ZIqTo1WKOA8i7kLVdpNEOTFA0PQr3BYjtHYMoYNEviMiWf6c5yjmDU4pc4gk6QlPU8RMsM4gXpDWV1EVTJ0o2JUqjCmY5SK4D76kDT3ihAAsn4AAaoQABLUO4vYB94CPLMiFRWKIaNiuUVWXJUSg5HCNSxYYbse4HgLUGMOch2HEfSrsjmqKU8LsSqpVluUlQbCoyGZBJeuXZg7vUJ77LkLQ3h0J7QeF+HJukbbFTjoY4qNW5QhooSEFSUTqzenkWed6EbLkH3+eD6Hw904Vpn5oGWK0Zs2wE-iZaqmqnCEBAcA8DxZOQMXCCmGikilDC2RYhi1W5GFuqRaLw+iDGGEUA+b0QoEm-pRS2I0bYIBOKOfEBh6z6E2HIEmrZtw0j3G-LIDktibXkFUNY9YCj0RlKkN0twyi7HUFOHBW5PgGiNKac05M36NEasYSebFyilEyJKIoUdjA1EyNBfMKcWHRm3LGFgCYCEjyHCkMojkTDl3KIWZQ8J-QqAkVrKw4gUSCLkTqD4hC3SOXqHtchuIqFiNuHKZy5QNj5kJjg7CKioGy0jvFSokJy4Bi2FkAG44JCCx+qYH66CcHeV0lSN+OY4GlULFbW8MUFDQi9HOJKEk5zNDbrxGInUoBvwJBbDJiCyx4yYtOG4f1aJeiUDgm6d0HpWNUaZXhYhtg5hUHWMG7EuayShK6MwhgK6pOyDgsmySekhVMczG4QsvS5GXAdMR2R7a-29IScUqoRYfkdPaaBTo1hMXgTUmiSCbBiBRI1dBSonnInfG-fR9FGrQnRoSZceMzBwh9PYewQA */
   createMachine(
     {
@@ -91,11 +91,11 @@ export const sheetMachine =
       },
       tsTypes: {} as import('./index.typegen').Typegen0,
       schema: {
-        context: {} as SheetContext,
-        events: {} as SheetEvent,
+        context: {} as BottomSheetContext,
+        events: {} as BottomSheetEvent,
       },
       preserveActionOrder: true,
-      id: 'Sheet',
+      id: 'bs',
       initial: 'closed',
       states: {
         closed: {
@@ -110,7 +110,7 @@ export const sheetMachine =
               target: 'open',
             },
             INITIALLY_OPEN: {
-              target: '#Sheet.open.initially',
+              target: '#bs.open.initially',
             },
           },
         },
@@ -150,15 +150,15 @@ export const sheetMachine =
                   exit: 'setLastHeight',
                   on: {
                     OPENED: {
-                      target: '#Sheet.open.resting',
+                      target: '#bs.open.resting',
                     },
                     DRAG: {
                       ...addDescription('redirect'),
-                      target: '#Sheet.open.dragging',
+                      target: '#bs.open.dragging',
                     },
                     SNAP: {
                       ...addDescription('redirect'),
-                      target: '#Sheet.open.snapping',
+                      target: '#bs.open.snapping',
                     },
                   },
                 },
@@ -225,7 +225,7 @@ export const sheetMachine =
               exit: 'setLastHeight',
               on: {
                 CLOSED: {
-                  target: '#Sheet.closed',
+                  target: '#bs.closed',
                 },
                 OPEN: {
                   ...addDescription('redirect'),

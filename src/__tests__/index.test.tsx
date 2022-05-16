@@ -1,15 +1,15 @@
-import { assignInitialHeight, sheetMachine } from '..'
+import { assignInitialHeight, BottomSheetMachine } from '..'
 import { assignSnapPoints } from '../utils'
 
 describe('sheetMachine', () => {
   describe('context', () => {
-    const openingState = sheetMachine.transition(
-      sheetMachine.initialState.value,
+    const openingState = BottomSheetMachine.transition(
+      BottomSheetMachine.initialState.value,
       { type: 'OPEN' }
     )
 
     test('initial state', () => {
-      const { context, value } = sheetMachine.initialState
+      const { context, value } = BottomSheetMachine.initialState
 
       expect({ context, value }).toMatchInlineSnapshot(`
         Object {
@@ -32,7 +32,7 @@ describe('sheetMachine', () => {
 
     describe('maxHeight', () => {
       test('SET_MAX_HEIGHT', () => {
-        const { context } = sheetMachine.transition(openingState.value, {
+        const { context } = BottomSheetMachine.transition(openingState.value, {
           type: 'SET_MAX_HEIGHT',
           payload: { maxHeight: 1920 },
         })
@@ -58,7 +58,7 @@ describe('sheetMachine', () => {
 
     describe('headerHeight', () => {
       test('SET_HEADER_HEIGHT', () => {
-        const { context } = sheetMachine.transition(openingState.value, {
+        const { context } = BottomSheetMachine.transition(openingState.value, {
           type: 'SET_HEADER_HEIGHT',
           payload: { headerHeight: 200 },
         })
@@ -82,7 +82,7 @@ describe('sheetMachine', () => {
 
     describe('contentHeight', () => {
       test('SET_CONTENT_HEIGHT', () => {
-        const { context } = sheetMachine.transition(openingState.value, {
+        const { context } = BottomSheetMachine.transition(openingState.value, {
           type: 'SET_CONTENT_HEIGHT',
           payload: { contentHeight: 200 },
         })
@@ -106,7 +106,7 @@ describe('sheetMachine', () => {
 
     describe('footerHeight', () => {
       test('SET_FOOTER_HEIGHT', () => {
-        const { context } = sheetMachine.transition(openingState.value, {
+        const { context } = BottomSheetMachine.transition(openingState.value, {
           type: 'SET_FOOTER_HEIGHT',
           payload: { footerHeight: 200 },
         })
@@ -131,13 +131,11 @@ describe('sheetMachine', () => {
     describe('minContent', () => {
       describe('OPEN', () => {
         test('Never larger than maxHeight', () => {
-          const { context } = sheetMachine
-            .withContext({
-              ...openingState.context,
-              maxHeight: 1,
-              minContent: 1920,
-            })
-            .transition(sheetMachine.initialState.value, { type: 'OPEN' })
+          const { context } = BottomSheetMachine.withContext({
+            ...openingState.context,
+            maxHeight: 1,
+            minContent: 1920,
+          }).transition(BottomSheetMachine.initialState.value, { type: 'OPEN' })
           expect(context).toMatchInlineSnapshot(`
             Object {
               "contentHeight": null,
@@ -158,13 +156,11 @@ describe('sheetMachine', () => {
         })
 
         test('Never smaller than 50', () => {
-          const { context } = sheetMachine
-            .withContext({
-              ...openingState.context,
-              maxHeight: 1920,
-              minContent: 0,
-            })
-            .transition(sheetMachine.initialState.value, { type: 'OPEN' })
+          const { context } = BottomSheetMachine.withContext({
+            ...openingState.context,
+            maxHeight: 1920,
+            minContent: 0,
+          }).transition(BottomSheetMachine.initialState.value, { type: 'OPEN' })
           expect(context).toMatchInlineSnapshot(`
             Object {
               "contentHeight": null,
@@ -185,14 +181,12 @@ describe('sheetMachine', () => {
         })
 
         test('Includes headerHeight', () => {
-          const { context } = sheetMachine
-            .withContext({
-              ...openingState.context,
-              maxHeight: 1920,
-              minContent: 0,
-              headerHeight: 128,
-            })
-            .transition(sheetMachine.initialState.value, { type: 'OPEN' })
+          const { context } = BottomSheetMachine.withContext({
+            ...openingState.context,
+            maxHeight: 1920,
+            minContent: 0,
+            headerHeight: 128,
+          }).transition(BottomSheetMachine.initialState.value, { type: 'OPEN' })
           expect(context).toMatchInlineSnapshot(`
             Object {
               "contentHeight": null,
@@ -213,15 +207,13 @@ describe('sheetMachine', () => {
         })
 
         test('Includes footerHeight', () => {
-          const { context } = sheetMachine
-            .withContext({
-              ...openingState.context,
-              maxHeight: 1920,
-              minContent: 0,
-              headerHeight: 128,
-              footerHeight: 256,
-            })
-            .transition(sheetMachine.initialState.value, { type: 'OPEN' })
+          const { context } = BottomSheetMachine.withContext({
+            ...openingState.context,
+            maxHeight: 1920,
+            minContent: 0,
+            headerHeight: 128,
+            footerHeight: 256,
+          }).transition(BottomSheetMachine.initialState.value, { type: 'OPEN' })
           expect(context).toMatchInlineSnapshot(`
             Object {
               "contentHeight": null,
@@ -242,7 +234,7 @@ describe('sheetMachine', () => {
         })
       })
 
-      const testMachine = sheetMachine.withContext({
+      const testMachine = BottomSheetMachine.withContext({
         ...openingState.context,
         maxHeight: 256,
         headerHeight: 128,
@@ -251,7 +243,7 @@ describe('sheetMachine', () => {
 
       test('SET_MAX_HEIGHT', () => {
         const { context: context1 } = testMachine.transition(
-          sheetMachine.initialState.value,
+          BottomSheetMachine.initialState.value,
           { type: 'SET_MAX_HEIGHT', payload: { maxHeight: 128 } }
         )
         expect(context1).toMatchInlineSnapshot(`
@@ -273,7 +265,7 @@ describe('sheetMachine', () => {
         expect(context1.minContent).toEqual(128)
 
         const { context: context2 } = testMachine.transition(
-          sheetMachine.initialState.value,
+          BottomSheetMachine.initialState.value,
           { type: 'SET_MAX_HEIGHT', payload: { maxHeight: 256 } }
         )
         expect(context2).toMatchInlineSnapshot(`
@@ -297,7 +289,7 @@ describe('sheetMachine', () => {
 
       test('SET_HEADER_HEIGHT', () => {
         const { context: context1 } = testMachine.transition(
-          sheetMachine.initialState.value,
+          BottomSheetMachine.initialState.value,
           { type: 'SET_HEADER_HEIGHT', payload: { headerHeight: 64 } }
         )
         expect(context1).toMatchInlineSnapshot(`
@@ -319,7 +311,7 @@ describe('sheetMachine', () => {
         expect(context1.minContent).toEqual(192)
 
         const { context: context2 } = testMachine.transition(
-          sheetMachine.initialState.value,
+          BottomSheetMachine.initialState.value,
           { type: 'SET_HEADER_HEIGHT', payload: { headerHeight: 128 } }
         )
         expect(context2).toMatchInlineSnapshot(`
@@ -343,7 +335,7 @@ describe('sheetMachine', () => {
 
       test('SET_FOOTER_HEIGHT', () => {
         const { context: context1 } = testMachine.transition(
-          sheetMachine.initialState.value,
+          BottomSheetMachine.initialState.value,
           { type: 'SET_FOOTER_HEIGHT', payload: { footerHeight: 64 } }
         )
         expect(context1).toMatchInlineSnapshot(`
@@ -365,7 +357,7 @@ describe('sheetMachine', () => {
         expect(context1.minContent).toEqual(192)
 
         const { context: context2 } = testMachine.transition(
-          sheetMachine.initialState.value,
+          BottomSheetMachine.initialState.value,
           { type: 'SET_FOOTER_HEIGHT', payload: { footerHeight: 128 } }
         )
         expect(context2).toMatchInlineSnapshot(`
@@ -391,15 +383,13 @@ describe('sheetMachine', () => {
     describe('maxContent', () => {
       describe('OPEN', () => {
         test('Never larger than maxHeight', () => {
-          const { context } = sheetMachine
-            .withContext({
-              ...openingState.context,
-              maxHeight: 1,
-              headerHeight: 1920,
-              contentHeight: 1920,
-              footerHeight: 1920,
-            })
-            .transition(sheetMachine.initialState.value, { type: 'OPEN' })
+          const { context } = BottomSheetMachine.withContext({
+            ...openingState.context,
+            maxHeight: 1,
+            headerHeight: 1920,
+            contentHeight: 1920,
+            footerHeight: 1920,
+          }).transition(BottomSheetMachine.initialState.value, { type: 'OPEN' })
           expect(context).toMatchInlineSnapshot(`
             Object {
               "contentHeight": 1920,
@@ -420,13 +410,11 @@ describe('sheetMachine', () => {
         })
 
         test('Never smaller than 0', () => {
-          const { context } = sheetMachine
-            .withContext({
-              ...openingState.context,
-              maxHeight: 1920,
-              maxContent: -1920,
-            })
-            .transition(sheetMachine.initialState.value, { type: 'OPEN' })
+          const { context } = BottomSheetMachine.withContext({
+            ...openingState.context,
+            maxHeight: 1920,
+            maxContent: -1920,
+          }).transition(BottomSheetMachine.initialState.value, { type: 'OPEN' })
           expect(context).toMatchInlineSnapshot(`
             Object {
               "contentHeight": null,
@@ -447,12 +435,10 @@ describe('sheetMachine', () => {
         })
 
         test('Never smaller than minContent', () => {
-          const { context } = sheetMachine
-            .withContext({
-              ...openingState.context,
-              maxHeight: 1920,
-            })
-            .transition(sheetMachine.initialState.value, { type: 'OPEN' })
+          const { context } = BottomSheetMachine.withContext({
+            ...openingState.context,
+            maxHeight: 1920,
+          }).transition(BottomSheetMachine.initialState.value, { type: 'OPEN' })
           expect(context).toMatchInlineSnapshot(`
             Object {
               "contentHeight": null,
@@ -473,14 +459,12 @@ describe('sheetMachine', () => {
         })
 
         test('Includes headerHeight', () => {
-          const { context } = sheetMachine
-            .withContext({
-              ...openingState.context,
-              maxHeight: 1920,
-              maxContent: 0,
-              headerHeight: 128,
-            })
-            .transition(sheetMachine.initialState.value, { type: 'OPEN' })
+          const { context } = BottomSheetMachine.withContext({
+            ...openingState.context,
+            maxHeight: 1920,
+            maxContent: 0,
+            headerHeight: 128,
+          }).transition(BottomSheetMachine.initialState.value, { type: 'OPEN' })
           expect(context).toMatchInlineSnapshot(`
             Object {
               "contentHeight": null,
@@ -501,15 +485,13 @@ describe('sheetMachine', () => {
         })
 
         test('Includes footerHeight', () => {
-          const { context } = sheetMachine
-            .withContext({
-              ...openingState.context,
-              maxHeight: 1920,
-              maxContent: 0,
-              headerHeight: 128,
-              footerHeight: 256,
-            })
-            .transition(sheetMachine.initialState.value, { type: 'OPEN' })
+          const { context } = BottomSheetMachine.withContext({
+            ...openingState.context,
+            maxHeight: 1920,
+            maxContent: 0,
+            headerHeight: 128,
+            footerHeight: 256,
+          }).transition(BottomSheetMachine.initialState.value, { type: 'OPEN' })
           expect(context).toMatchInlineSnapshot(`
             Object {
               "contentHeight": null,
@@ -530,16 +512,14 @@ describe('sheetMachine', () => {
         })
 
         test('Includes contentHeight', () => {
-          const { context } = sheetMachine
-            .withContext({
-              ...openingState.context,
-              maxHeight: 1920,
-              maxContent: 0,
-              headerHeight: 128,
-              footerHeight: 256,
-              contentHeight: 512,
-            })
-            .transition(sheetMachine.initialState.value, { type: 'OPEN' })
+          const { context } = BottomSheetMachine.withContext({
+            ...openingState.context,
+            maxHeight: 1920,
+            maxContent: 0,
+            headerHeight: 128,
+            footerHeight: 256,
+            contentHeight: 512,
+          }).transition(BottomSheetMachine.initialState.value, { type: 'OPEN' })
           expect(context).toMatchInlineSnapshot(`
             Object {
               "contentHeight": 512,
@@ -560,7 +540,7 @@ describe('sheetMachine', () => {
         })
       })
 
-      const testMachine = sheetMachine.withContext({
+      const testMachine = BottomSheetMachine.withContext({
         ...openingState.context,
         maxHeight: 384,
         headerHeight: 128,
@@ -570,7 +550,7 @@ describe('sheetMachine', () => {
 
       test('SET_MAX_HEIGHT', () => {
         const { context: context1 } = testMachine.transition(
-          sheetMachine.initialState.value,
+          BottomSheetMachine.initialState.value,
           { type: 'SET_MAX_HEIGHT', payload: { maxHeight: 128 } }
         )
         expect(context1).toMatchInlineSnapshot(`
@@ -592,7 +572,7 @@ describe('sheetMachine', () => {
         expect(context1.maxContent).toEqual(128)
 
         const { context: context2 } = testMachine.transition(
-          sheetMachine.initialState.value,
+          BottomSheetMachine.initialState.value,
           { type: 'SET_MAX_HEIGHT', payload: { maxHeight: 256 } }
         )
         expect(context2).toMatchInlineSnapshot(`
@@ -616,7 +596,7 @@ describe('sheetMachine', () => {
 
       test('SET_HEADER_HEIGHT', () => {
         const { context: context1 } = testMachine.transition(
-          sheetMachine.initialState.value,
+          BottomSheetMachine.initialState.value,
           { type: 'SET_HEADER_HEIGHT', payload: { headerHeight: 64 } }
         )
         expect(context1).toMatchInlineSnapshot(`
@@ -638,7 +618,7 @@ describe('sheetMachine', () => {
         expect(context1.maxContent).toEqual(320)
 
         const { context: context2 } = testMachine.transition(
-          sheetMachine.initialState.value,
+          BottomSheetMachine.initialState.value,
           { type: 'SET_HEADER_HEIGHT', payload: { headerHeight: 128 } }
         )
         expect(context2).toMatchInlineSnapshot(`
@@ -662,7 +642,7 @@ describe('sheetMachine', () => {
 
       test('SET_CONTENT_HEIGHT', () => {
         const { context: context1 } = testMachine.transition(
-          sheetMachine.initialState.value,
+          BottomSheetMachine.initialState.value,
           { type: 'SET_CONTENT_HEIGHT', payload: { contentHeight: 64 } }
         )
         expect(context1).toMatchInlineSnapshot(`
@@ -684,7 +664,7 @@ describe('sheetMachine', () => {
         expect(context1.maxContent).toEqual(320)
 
         const { context: context2 } = testMachine.transition(
-          sheetMachine.initialState.value,
+          BottomSheetMachine.initialState.value,
           { type: 'SET_CONTENT_HEIGHT', payload: { contentHeight: 128 } }
         )
         expect(context2).toMatchInlineSnapshot(`
@@ -708,7 +688,7 @@ describe('sheetMachine', () => {
 
       test('SET_FOOTER_HEIGHT', () => {
         const { context: context1 } = testMachine.transition(
-          sheetMachine.initialState.value,
+          BottomSheetMachine.initialState.value,
           { type: 'SET_FOOTER_HEIGHT', payload: { footerHeight: 64 } }
         )
         expect(context1).toMatchInlineSnapshot(`
@@ -730,7 +710,7 @@ describe('sheetMachine', () => {
         expect(context1.maxContent).toEqual(320)
 
         const { context: context2 } = testMachine.transition(
-          sheetMachine.initialState.value,
+          BottomSheetMachine.initialState.value,
           { type: 'SET_FOOTER_HEIGHT', payload: { footerHeight: 128 } }
         )
         expect(context2).toMatchInlineSnapshot(`
@@ -755,15 +735,13 @@ describe('sheetMachine', () => {
 
     describe('snapPoints', () => {
       test('OPEN initial snapshot', () => {
-        const { context } = sheetMachine
-          .withContext({
-            ...openingState.context,
-            maxHeight: 384,
-            headerHeight: 128,
-            contentHeight: 128,
-            footerHeight: 128,
-          })
-          .transition(sheetMachine.initialState.value, { type: 'OPEN' })
+        const { context } = BottomSheetMachine.withContext({
+          ...openingState.context,
+          maxHeight: 384,
+          headerHeight: 128,
+          contentHeight: 128,
+          footerHeight: 128,
+        }).transition(BottomSheetMachine.initialState.value, { type: 'OPEN' })
         expect(context).toMatchInlineSnapshot(`
           Object {
             "contentHeight": 128,
@@ -787,7 +765,7 @@ describe('sheetMachine', () => {
         `)
       })
 
-      const testMachine = sheetMachine.withContext({
+      const testMachine = BottomSheetMachine.withContext({
         ...openingState.context,
         maxHeight: 256,
         headerHeight: 8,
@@ -972,15 +950,13 @@ describe('sheetMachine', () => {
 
     describe('initialHeight', () => {
       test('OPEN initial snapshot', () => {
-        const { context } = sheetMachine
-          .withContext({
-            ...openingState.context,
-            maxHeight: 512,
-            headerHeight: 128,
-            contentHeight: 128,
-            footerHeight: 128,
-          })
-          .transition(sheetMachine.initialState.value, { type: 'OPEN' })
+        const { context } = BottomSheetMachine.withContext({
+          ...openingState.context,
+          maxHeight: 512,
+          headerHeight: 128,
+          contentHeight: 128,
+          footerHeight: 128,
+        }).transition(BottomSheetMachine.initialState.value, { type: 'OPEN' })
         expect(context).toMatchInlineSnapshot(`
           Object {
             "contentHeight": 128,
@@ -1001,14 +977,12 @@ describe('sheetMachine', () => {
       })
 
       test('lastHeight', () => {
-        const { context } = sheetMachine
-          .withContext({
-            ...openingState.context,
-            maxHeight: 256,
-            contentHeight: 256,
-            lastHeight: 256,
-          })
-          .transition(sheetMachine.initialState.value, { type: 'OPEN' })
+        const { context } = BottomSheetMachine.withContext({
+          ...openingState.context,
+          maxHeight: 256,
+          contentHeight: 256,
+          lastHeight: 256,
+        }).transition(BottomSheetMachine.initialState.value, { type: 'OPEN' })
         expect(context).toMatchInlineSnapshot(`
           Object {
             "contentHeight": 256,
@@ -1029,12 +1003,11 @@ describe('sheetMachine', () => {
       })
 
       test('maxHeight', () => {
-        const { context } = sheetMachine
-          .withContext({
-            ...openingState.context,
-            maxHeight: 256,
-            contentHeight: 256,
-          })
+        const { context } = BottomSheetMachine.withContext({
+          ...openingState.context,
+          maxHeight: 256,
+          contentHeight: 256,
+        })
           .withConfig({
             actions: {
               setInitialHeight: assignInitialHeight(
@@ -1042,7 +1015,7 @@ describe('sheetMachine', () => {
               ),
             },
           })
-          .transition(sheetMachine.initialState.value, { type: 'OPEN' })
+          .transition(BottomSheetMachine.initialState.value, { type: 'OPEN' })
         expect(context).toMatchInlineSnapshot(`
           Object {
             "contentHeight": 256,
@@ -1063,12 +1036,11 @@ describe('sheetMachine', () => {
       })
 
       test('headerHeight', () => {
-        const { context } = sheetMachine
-          .withContext({
-            ...openingState.context,
-            maxHeight: 256,
-            headerHeight: 256,
-          })
+        const { context } = BottomSheetMachine.withContext({
+          ...openingState.context,
+          maxHeight: 256,
+          headerHeight: 256,
+        })
           .withConfig({
             actions: {
               setInitialHeight: assignInitialHeight(
@@ -1076,7 +1048,7 @@ describe('sheetMachine', () => {
               ),
             },
           })
-          .transition(sheetMachine.initialState.value, { type: 'OPEN' })
+          .transition(BottomSheetMachine.initialState.value, { type: 'OPEN' })
         expect(context).toMatchInlineSnapshot(`
           Object {
             "contentHeight": null,
@@ -1097,12 +1069,11 @@ describe('sheetMachine', () => {
       })
 
       test('contentHeight', () => {
-        const { context } = sheetMachine
-          .withContext({
-            ...openingState.context,
-            maxHeight: 256,
-            contentHeight: 256,
-          })
+        const { context } = BottomSheetMachine.withContext({
+          ...openingState.context,
+          maxHeight: 256,
+          contentHeight: 256,
+        })
           .withConfig({
             actions: {
               setInitialHeight: assignInitialHeight(
@@ -1110,7 +1081,7 @@ describe('sheetMachine', () => {
               ),
             },
           })
-          .transition(sheetMachine.initialState.value, { type: 'OPEN' })
+          .transition(BottomSheetMachine.initialState.value, { type: 'OPEN' })
         expect(context).toMatchInlineSnapshot(`
           Object {
             "contentHeight": 256,
@@ -1131,12 +1102,11 @@ describe('sheetMachine', () => {
       })
 
       test('footerHeight', () => {
-        const { context } = sheetMachine
-          .withContext({
-            ...openingState.context,
-            maxHeight: 256,
-            footerHeight: 256,
-          })
+        const { context } = BottomSheetMachine.withContext({
+          ...openingState.context,
+          maxHeight: 256,
+          footerHeight: 256,
+        })
           .withConfig({
             actions: {
               setInitialHeight: assignInitialHeight(
@@ -1144,7 +1114,7 @@ describe('sheetMachine', () => {
               ),
             },
           })
-          .transition(sheetMachine.initialState.value, { type: 'OPEN' })
+          .transition(BottomSheetMachine.initialState.value, { type: 'OPEN' })
         expect(context).toMatchInlineSnapshot(`
           Object {
             "contentHeight": null,
@@ -1165,12 +1135,11 @@ describe('sheetMachine', () => {
       })
 
       test('minContent', () => {
-        const { context } = sheetMachine
-          .withContext({
-            ...openingState.context,
-            maxHeight: 256,
-            headerHeight: 256,
-          })
+        const { context } = BottomSheetMachine.withContext({
+          ...openingState.context,
+          maxHeight: 256,
+          headerHeight: 256,
+        })
           .withConfig({
             actions: {
               setInitialHeight: assignInitialHeight(
@@ -1178,7 +1147,7 @@ describe('sheetMachine', () => {
               ),
             },
           })
-          .transition(sheetMachine.initialState.value, { type: 'OPEN' })
+          .transition(BottomSheetMachine.initialState.value, { type: 'OPEN' })
         expect(context).toMatchInlineSnapshot(`
           Object {
             "contentHeight": null,
@@ -1199,12 +1168,11 @@ describe('sheetMachine', () => {
       })
 
       test('maxContent', () => {
-        const { context } = sheetMachine
-          .withContext({
-            ...openingState.context,
-            maxHeight: 256,
-            contentHeight: 256,
-          })
+        const { context } = BottomSheetMachine.withContext({
+          ...openingState.context,
+          maxHeight: 256,
+          contentHeight: 256,
+        })
           .withConfig({
             actions: {
               setInitialHeight: assignInitialHeight(
@@ -1212,7 +1180,7 @@ describe('sheetMachine', () => {
               ),
             },
           })
-          .transition(sheetMachine.initialState.value, { type: 'OPEN' })
+          .transition(BottomSheetMachine.initialState.value, { type: 'OPEN' })
         expect(context).toMatchInlineSnapshot(`
           Object {
             "contentHeight": 256,
@@ -1233,12 +1201,11 @@ describe('sheetMachine', () => {
       })
 
       test('snapPoints', () => {
-        const { context } = sheetMachine
-          .withContext({
-            ...openingState.context,
-            maxHeight: 256,
-            contentHeight: 256,
-          })
+        const { context } = BottomSheetMachine.withContext({
+          ...openingState.context,
+          maxHeight: 256,
+          contentHeight: 256,
+        })
           .withConfig({
             actions: {
               setInitialHeight: assignInitialHeight(
@@ -1246,7 +1213,7 @@ describe('sheetMachine', () => {
               ),
             },
           })
-          .transition(sheetMachine.initialState.value, { type: 'OPEN' })
+          .transition(BottomSheetMachine.initialState.value, { type: 'OPEN' })
         expect(context).toMatchInlineSnapshot(`
           Object {
             "contentHeight": 256,
@@ -1266,35 +1233,33 @@ describe('sheetMachine', () => {
         expect(context.initialHeight).toEqual(256)
       })
 
-      const testMachine = sheetMachine
-        .withContext({
-          ...openingState.context,
-          maxHeight: 256,
-          headerHeight: 8,
-          contentHeight: 32,
-          footerHeight: 16,
-        })
-        .withConfig({
-          actions: {
-            setSnapPoints: assignSnapPoints(
-              ({
-                maxHeight,
-                headerHeight,
-                contentHeight,
-                footerHeight,
-                minContent,
-                maxContent,
-              }) => [
-                maxHeight,
-                headerHeight,
-                contentHeight,
-                footerHeight,
-                minContent,
-                maxContent,
-              ]
-            ),
-          },
-        })
+      const testMachine = BottomSheetMachine.withContext({
+        ...openingState.context,
+        maxHeight: 256,
+        headerHeight: 8,
+        contentHeight: 32,
+        footerHeight: 16,
+      }).withConfig({
+        actions: {
+          setSnapPoints: assignSnapPoints(
+            ({
+              maxHeight,
+              headerHeight,
+              contentHeight,
+              footerHeight,
+              minContent,
+              maxContent,
+            }) => [
+              maxHeight,
+              headerHeight,
+              contentHeight,
+              footerHeight,
+              minContent,
+              maxContent,
+            ]
+          ),
+        },
+      })
 
       test('SET_HEADER_HEIGHT', () => {
         const { context } = testMachine
@@ -1445,24 +1410,22 @@ describe('sheetMachine', () => {
     })
 
     describe('height', () => {
-      const testMachine = sheetMachine
-        .withContext({
-          ...openingState.context,
-          maxHeight: 512,
-          headerHeight: 128,
-          contentHeight: 128,
-          footerHeight: 128,
-          initialHeight: 384,
-          snapPoints: [256],
-        })
-        .withConfig({
-          actions: {
-            setSnapPoints: assignSnapPoints(({ maxContent }) => [
-              maxContent,
-              256,
-            ]),
-          },
-        })
+      const testMachine = BottomSheetMachine.withContext({
+        ...openingState.context,
+        maxHeight: 512,
+        headerHeight: 128,
+        contentHeight: 128,
+        footerHeight: 128,
+        initialHeight: 384,
+        snapPoints: [256],
+      }).withConfig({
+        actions: {
+          setSnapPoints: assignSnapPoints(({ maxContent }) => [
+            maxContent,
+            256,
+          ]),
+        },
+      })
 
       // reads from initialHeight and snapPoints
       // recalc when snapPoints changes
@@ -1653,29 +1616,27 @@ describe('sheetMachine', () => {
 
     describe('lastHeight', () => {
       // @TODO: The last snap point the sheet was rendered in, or null if it haven't been opened yet. DRAG, OPEN, RESIZE, SNAP writes to this value, its purpose is to allow userland initialHeight to restore the previous height.
-      const testMachine = sheetMachine
-        .withContext({
-          ...openingState.context,
-          maxHeight: 512,
-          headerHeight: 64,
-          contentHeight: 128,
-          footerHeight: 64,
-          height: 256,
-          initialHeight: 256,
-          snapPoints: [256, 512],
-        })
-        .withConfig({
-          actions: {
-            setSnapPoints: assignSnapPoints(({ maxContent }) => [
-              maxContent,
-              512,
-            ]),
-          },
-        })
+      const testMachine = BottomSheetMachine.withContext({
+        ...openingState.context,
+        maxHeight: 512,
+        headerHeight: 64,
+        contentHeight: 128,
+        footerHeight: 64,
+        height: 256,
+        initialHeight: 256,
+        snapPoints: [256, 512],
+      }).withConfig({
+        actions: {
+          setSnapPoints: assignSnapPoints(({ maxContent }) => [
+            maxContent,
+            512,
+          ]),
+        },
+      })
 
       test('initial', () => {
         const { context } = testMachine.transition(
-          sheetMachine.initialState.value,
+          BottomSheetMachine.initialState.value,
           { type: 'OPEN' }
         )
         expect(context).toMatchInlineSnapshot(`

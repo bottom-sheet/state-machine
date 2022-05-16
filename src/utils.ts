@@ -4,7 +4,7 @@ import type {
   SnapPoints,
 } from '@bottom-sheet/types'
 import { assign } from 'xstate'
-import type { SheetContext } from '.'
+import type { BottomSheetContext } from '.'
 import memoize from 'lodash.memoize'
 import clamp from 'lodash.clamp'
 
@@ -14,7 +14,7 @@ export const addDescription = (description: string) =>
   process.env.NODE_ENV !== 'production' ? { description } : {}
 
 export const assignSnapPoints = (getSnapPoints: GetSnapPoints) =>
-  assign<SheetContext>({
+  assign<BottomSheetContext>({
     snapPoints: ({
       maxHeight,
       headerHeight,
@@ -37,7 +37,7 @@ export const assignSnapPoints = (getSnapPoints: GetSnapPoints) =>
   })
 
 export const assignInitialHeight = (getInitialHeight: GetInitialHeight) =>
-  assign<SheetContext>({
+  assign<BottomSheetContext>({
     initialHeight: ({
       maxHeight,
       headerHeight,
@@ -119,7 +119,7 @@ export function computeMinContent(
     maxHeight,
     headerHeight,
     footerHeight,
-  }: Pick<SheetContext, 'maxHeight' | 'headerHeight' | 'footerHeight'>,
+  }: Pick<BottomSheetContext, 'maxHeight' | 'headerHeight' | 'footerHeight'>,
   minHeight = 50
 ) {
   return Math.min(maxHeight, Math.max(headerHeight + footerHeight, minHeight))
@@ -132,7 +132,7 @@ export function computeMaxContent(
     contentHeight,
     footerHeight,
   }: Pick<
-    SheetContext,
+    BottomSheetContext,
     'maxHeight' | 'headerHeight' | 'contentHeight' | 'footerHeight'
   >,
   minHeight?: number
