@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/bottom-sheet/state-machine/compare/v1.0.3...v1.0.4) (2022-05-16)
+
+
+### Bug Fixes
+
+* add computeSnapPoints to exports ([5e0a018](https://github.com/bottom-sheet/state-machine/commit/5e0a018f59da4017797f52606b367fad32b02cce))
+
 ## [1.0.3](https://github.com/bottom-sheet/state-machine/compare/v1.0.2...v1.0.3) (2022-05-16)
 
 
