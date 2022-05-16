@@ -1,3 +1,11 @@
+## [1.0.5](https://github.com/bottom-sheet/state-machine/compare/v1.0.4...v1.0.5) (2022-05-16)
+
+
+### Bug Fixes
+
+* **exports:** add interpret from xstate ([a0a6df0](https://github.com/bottom-sheet/state-machine/commit/a0a6df0a81d0dc6cc3716306ff6d6cbf98698d31))
+* remove interpret, and unused action ([1d667ff](https://github.com/bottom-sheet/state-machine/commit/1d667ff8f65e19ae1bee3398c55732286d928bea))
+
 ## [1.0.4](https://github.com/bottom-sheet/state-machine/compare/v1.0.3...v1.0.4) (2022-05-16)
 
 
