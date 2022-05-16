@@ -9,6 +9,7 @@ import memoize from 'lodash.memoize'
 
 // Only add the description field in dev mode
 export const addDescription = (description: string) =>
+  // @ts-ignore -- don't know why parcel fails on this line
   process.env.NODE_ENV !== 'production' ? { description } : {}
 
 export const assignSnapPoints = (getSnapPoints: GetSnapPoints) =>

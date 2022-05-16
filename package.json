@@ -32,12 +32,14 @@
   "scripts": {
     "prebuild": "rimraf dist/**",
     "build": "parcel build",
+    "//postbuild": "cp src/index.typegen.ts dist/dts/index.typegen.ts",
     "dev": "parcel watch",
     "lint": "prettier --check .",
     "lint:format": "prettier --write .",
     "package-check": "npx package-check",
     "prepublishOnly": "npm run build",
-    "test": "npm run lint && npm run build && npm run jest && npm run package-check"
+    "test": "npm run lint && npm run build && npx jest && npm run package-check",
+    "watch": "npx jest --watch"
   },
   "prettier": {
     "semi": false,
@@ -57,11 +59,13 @@
     "@semantic-release/git": "^10.0.1",
     "@skypack/package-check": "^0.2.2",
     "@types/jest": "^27.5.1",
+    "jest": "^28.1.0",
     "parcel": "^2.5.0",
     "prettier": "^2.6.2",
     "prettier-plugin-packagejson": "^2.2.18",
     "rimraf": "^3.0.2",
     "semantic-release": "^19.0.2",
+    "ts-jest": "^28.0.2",
     "typescript": "^4.6.4"
   },
   "publishConfig": {
