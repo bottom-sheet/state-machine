@@ -30,9 +30,9 @@
     "dist"
   ],
   "scripts": {
-    "postbuild": "cp src/index.typegen.ts dist/dts/index.typegen.d.ts && npx replace-in-file \"index.typegen\" \"./index.typegen\" dist/dts/index.d.ts",
     "prebuild": "rimraf dist/**",
     "build": "parcel build",
+    "postbuild": "cp src/index.typegen.ts dist/dts/index.typegen.d.ts && npx replace-in-file \"index.typegen\" \"./index.typegen\" dist/dts/index.d.ts",
     "dev": "parcel watch",
     "lint": "eslint . --ext ts,tsx,js,jsx --max-warnings 0 && prettier --check .",
     "lint:format": "eslint . --ext ts,tsx,js,jsx --fix && prettier --write .",
