@@ -23,6 +23,8 @@ export {
   defaultSnapPoints,
 }
 
+export { interpret } from 'xstate'
+
 export type BottomSheetEvent =
   | { type: 'OPEN' }
   | { type: 'INITIALLY_OPEN' }
