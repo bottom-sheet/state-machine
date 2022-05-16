@@ -2,13 +2,16 @@
   "compilerOptions": {
     "outDir": "dist",
     "target": "esnext",
-    "strict": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
     "isolatedModules": true,
     "baseUrl": ".",
-    "emitDeclarationOnly": true,
     "declaration": true
   },
   "include": ["src"],
