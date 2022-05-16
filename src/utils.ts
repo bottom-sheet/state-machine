@@ -6,6 +6,7 @@ import type {
 import { assign } from 'xstate'
 import type { SheetContext } from '.'
 import memoize from 'lodash.memoize'
+import clamp from 'lodash.clamp'
 
 // Only add the description field in dev mode
 export const addDescription = (description: string) =>
@@ -143,24 +144,6 @@ export function computeMaxContent(
       computeMinContent({ maxHeight, headerHeight, footerHeight }, minHeight)
     )
   )
-}
-
-// stolen from lodash <3
-// @TODO: use lodash.clamp directly
-export function clamp(number: number, lower: number, upper: number) {
-  number = +number
-  lower = +lower
-  upper = +upper
-  // eslint-disable-next-line no-self-compare
-  lower = lower === lower ? lower : 0
-  // eslint-disable-next-line no-self-compare
-  upper = upper === upper ? upper : 0
-  // eslint-disable-next-line no-self-compare
-  if (number === number) {
-    number = number <= upper ? number : upper
-    number = number >= lower ? number : lower
-  }
-  return number
 }
 
 export const defaultSnapPoints: GetSnapPoints = ({ maxContent }) => {
