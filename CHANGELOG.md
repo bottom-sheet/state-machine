@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/bottom-sheet/state-machine/compare/v1.0.1...v1.0.2) (2022-05-16)
+
+
+### Bug Fixes
+
+* add typegen to export ([3f42f3a](https://github.com/bottom-sheet/state-machine/commit/3f42f3a5803279ab0a4223302a1fbd173645356a))
+
 ## [1.0.1](https://github.com/bottom-sheet/state-machine/compare/v1.0.0...v1.0.1) (2022-05-16)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@bottom-sheet/state-machine",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "The bottom-sheet brains, built on xstate",
   "keywords": [
     "typescript",
