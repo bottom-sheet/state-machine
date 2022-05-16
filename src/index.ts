@@ -1,5 +1,5 @@
-import { assign, createMachine } from 'xstate'
 import type { SnapPoints } from '@bottom-sheet/types'
+import { assign, createMachine } from 'xstate'
 import {
   addDescription,
   assignInitialHeight,
@@ -7,6 +7,7 @@ import {
   computeMaxContent,
   computeMinContent,
   computeSnapPointBounds,
+  computeSnapPoints,
   defaultInitialHeight,
   defaultSnapPoints,
 } from './utils'
@@ -17,6 +18,7 @@ export {
   computeMaxContent,
   computeMinContent,
   computeSnapPointBounds,
+  computeSnapPoints,
   defaultInitialHeight,
   defaultSnapPoints,
 }
