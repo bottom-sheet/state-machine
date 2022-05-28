@@ -1,3 +1,10 @@
+## [1.0.8](https://github.com/bottom-sheet/state-machine/compare/v1.0.7...v1.0.8) (2022-05-28)
+
+
+### Bug Fixes
+
+* bump deps ([bebc36a](https://github.com/bottom-sheet/state-machine/commit/bebc36a35a8229bd5dfa4b9dec912259c46ec98d))
+
 ## [1.0.7](https://github.com/bottom-sheet/state-machine/compare/v1.0.6...v1.0.7) (2022-05-28)
 
 
