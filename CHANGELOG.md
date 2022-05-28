@@ -1,3 +1,10 @@
+## [1.0.7](https://github.com/bottom-sheet/state-machine/compare/v1.0.6...v1.0.7) (2022-05-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @bottom-sheet/types to v1.0.4 ([#5](https://github.com/bottom-sheet/state-machine/issues/5)) ([080a662](https://github.com/bottom-sheet/state-machine/commit/080a662f279b57efaa3d76c89bca2165cfae5d1e))
+
 ## [1.0.6](https://github.com/bottom-sheet/state-machine/compare/v1.0.5...v1.0.6) (2022-05-28)
 
 
