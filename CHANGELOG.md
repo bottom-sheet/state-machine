@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/bottom-sheet/state-machine/compare/v1.0.5...v1.0.6) (2022-05-28)
+
+
+### Bug Fixes
+
+* **deps:** update devdependencies (non-major) ([#4](https://github.com/bottom-sheet/state-machine/issues/4)) ([9f4b0e7](https://github.com/bottom-sheet/state-machine/commit/9f4b0e73a508ebef50b23b920bfd52e4b31dde1a))
+
 ## [1.0.5](https://github.com/bottom-sheet/state-machine/compare/v1.0.4...v1.0.5) (2022-05-16)
 
 
