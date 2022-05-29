@@ -1,12 +1,14 @@
 import type {
-  GetSnapPoints,
   GetInitialHeight,
+  GetSnapPoints,
   SnapPoints,
 } from '@bottom-sheet/types'
-import { assign } from 'xstate'
-import type { BottomSheetContext } from '.'
-import memoize from 'lodash.memoize'
 import clamp from 'lodash.clamp'
+import isDeepEqual from 'lodash.isequal'
+import memoize from 'memoize-one'
+import { assign } from 'xstate'
+
+import type { BottomSheetContext } from '.'
 
 // Only add the description field in dev mode
 export const addDescription = (description: string) =>
@@ -111,7 +113,7 @@ function _computeSnapPointBounds(
 }
 export const computeSnapPointBounds = memoize(
   _computeSnapPointBounds,
-  (unsafeHeight, snapPoints) => `${unsafeHeight}-${JSON.stringify(snapPoints)}`
+  isDeepEqual
 )
 
 export function computeMinContent(
@@ -151,8 +153,8 @@ export const defaultSnapPoints: GetSnapPoints = ({ maxContent }) => {
 }
 
 export const defaultInitialHeight: GetInitialHeight = ({
-  snapPoints,
   lastHeight,
+  maxContent,
 }) => {
-  return lastHeight ?? snapPoints[0]
+  return lastHeight ?? maxContent
 }

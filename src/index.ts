@@ -1,5 +1,6 @@
 import type { SnapPoints } from '@bottom-sheet/types'
 import { assign, createMachine } from 'xstate'
+
 import {
   addDescription,
   assignInitialHeight,

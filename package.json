@@ -49,9 +49,10 @@
   "dependencies": {
     "@bottom-sheet/types": "^1.0.6",
     "@types/lodash.clamp": "^4.0.7",
-    "@types/lodash.memoize": "^4.1.7",
+    "@types/lodash.isequal": "^4.5.6",
     "lodash.clamp": "^4.0.3",
-    "lodash.memoize": "^4.1.2",
+    "lodash.isequal": "^4.5.0",
+    "memoize-one": "^6.0.0",
     "xstate": "^4.32.1"
   },
   "devDependencies": {
@@ -70,6 +71,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.30.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "jest": "^28.1.0",
     "parcel": "^2.6.0",
     "prettier": "^2.6.2",

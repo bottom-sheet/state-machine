@@ -1,5 +1,6 @@
 import type { SnapPoints } from '@bottom-sheet/types'
-import { computeSnapPoints, computeSnapPointBounds } from '../utils'
+
+import { computeSnapPointBounds, computeSnapPoints } from '../utils'
 
 describe('computeSnapPoints', () => {
   test('handles NaN and null', () => {

@@ -803,7 +803,7 @@ describe('sheetMachine', () => {
             "footerHeight": 16,
             "headerHeight": 8,
             "height": 0,
-            "initialHeight": 8,
+            "initialHeight": 56,
             "lastHeight": null,
             "maxContent": 56,
             "maxHeight": 256,
