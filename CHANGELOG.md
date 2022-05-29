@@ -1,3 +1,10 @@
+## [1.0.11](https://github.com/bottom-sheet/state-machine/compare/v1.0.10...v1.0.11) (2022-05-29)
+
+
+### Bug Fixes
+
+* **initialHeight:** default to maxContent ([d0e4953](https://github.com/bottom-sheet/state-machine/commit/d0e495398da833daf37566ba6645d021e7472b26))
+
 ## [1.0.10](https://github.com/bottom-sheet/state-machine/compare/v1.0.9...v1.0.10) (2022-05-28)
 
 
