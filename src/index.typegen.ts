@@ -30,7 +30,7 @@ export interface Typegen0 {
     setHeaderHeight: 'SET_HEADER_HEIGHT'
     setContentHeight: 'SET_CONTENT_HEIGHT'
     setFooterHeight: 'SET_FOOTER_HEIGHT'
-    setHeight: 'DRAG' | 'RESIZE' | 'SNAP' | 'CLOSE'
+    setHeight: 'TRANSITION_DRAG' | 'RESIZE' | 'SNAP' | 'CLOSE'
     setLastHeight: 'xstate.init'
   }
   internalEvents: {
@@ -49,26 +49,29 @@ export interface Typegen0 {
   matchesStates:
     | 'closed'
     | 'open'
-    | 'open.initially'
     | 'open.opening'
     | 'open.opening.waiting'
     | 'open.opening.autofocusing'
-    | 'open.opening.animating'
+    | 'open.opening.transition'
     | 'open.resting'
     | 'open.dragging'
+    | 'open.dragging.gesture'
+    | 'open.dragging.transition'
     | 'open.resizing'
     | 'open.snapping'
     | 'open.closing'
     | {
         open?:
-          | 'initially'
           | 'opening'
           | 'resting'
           | 'dragging'
           | 'resizing'
           | 'snapping'
           | 'closing'
-          | { opening?: 'waiting' | 'autofocusing' | 'animating' }
+          | {
+              opening?: 'waiting' | 'autofocusing' | 'transition'
+              dragging?: 'gesture' | 'transition'
+            }
       }
   tags: never
 }
