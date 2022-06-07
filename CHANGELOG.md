@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/bottom-sheet/state-machine/compare/v1.0.11...v1.1.0) (2022-06-07)
+
+
+### Features
+
+* add dragging.gesture and transition ([#17](https://github.com/bottom-sheet/state-machine/issues/17)) ([82efc68](https://github.com/bottom-sheet/state-machine/commit/82efc68c8f9ce8d6eb5292dab8ba8e1eefe740e4))
+
 ## [1.0.11](https://github.com/bottom-sheet/state-machine/compare/v1.0.10...v1.0.11) (2022-05-29)
 
 
