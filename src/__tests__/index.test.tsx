@@ -1431,7 +1431,7 @@ describe('sheetMachine', () => {
       // recalc when snapPoints changes
       test('Reads initialHeight on opening.waiting.leave', () => {
         const { context } = testMachine.transition(openingState.value, {
-          type: 'READY',
+          type: 'TRANSITION_OPEN',
         })
         expect(context).toMatchInlineSnapshot(`
           Object {
@@ -1546,8 +1546,8 @@ describe('sheetMachine', () => {
             height: 384,
           })
           .transition(
-            { open: 'resting' },
-            { type: 'DRAG', payload: { height: 256 } }
+            { open: { dragging: 'gesture' } },
+            { type: 'TRANSITION_DRAG', payload: { height: 256 } }
           )
         expect(context).toMatchInlineSnapshot(`
           Object {
@@ -1576,7 +1576,7 @@ describe('sheetMachine', () => {
           })
           .transition(
             { open: 'resting' },
-            { type: 'DRAG', payload: { height: 256 } }
+            { type: 'SNAP', payload: { height: 256 } }
           )
         expect(context).toMatchInlineSnapshot(`
           Object {
@@ -1662,7 +1662,7 @@ describe('sheetMachine', () => {
       test('open.opening.autofocusing.exit', () => {
         const { context } = testMachine.transition(
           { open: { opening: 'autofocusing' } },
-          { type: 'READY' }
+          { type: 'TRANSITION_OPEN' }
         )
         expect(context).toMatchInlineSnapshot(`
           Object {
@@ -1686,7 +1686,7 @@ describe('sheetMachine', () => {
 
       test('open.opening.animating.exit', () => {
         const { context } = testMachine.transition(
-          { open: { opening: 'animating' } },
+          { open: { opening: 'transition' } },
           { type: 'OPENED' }
         )
         expect(context).toMatchInlineSnapshot(`
@@ -1711,7 +1711,7 @@ describe('sheetMachine', () => {
 
       test('DRAGGED', () => {
         const { context } = testMachine.transition(
-          { open: 'dragging' },
+          { open: { dragging: 'transition' } },
           { type: 'DRAGGED' }
         )
         expect(context).toMatchInlineSnapshot(`

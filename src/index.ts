@@ -26,15 +26,17 @@ export {
 
 export type BottomSheetEvent =
   | { type: 'OPEN' }
-  | { type: 'INITIALLY_OPEN' }
+  // @TODO: implement support for an initally open state that doesn't animate from a closed position
+  // | { type: 'INITIALLY_OPEN' }
   | { type: 'AUTOFOCUS' }
-  | { type: 'READY' }
+  | { type: 'TRANSITION_OPEN' }
   | { type: 'OPENED' }
   | { type: 'RESIZE'; payload: { height: number } }
   | { type: 'RESIZED' }
   | { type: 'SNAP'; payload: { height: number } }
   | { type: 'SNAPPED' }
-  | { type: 'DRAG'; payload: { height: number } }
+  | { type: 'DRAG' }
+  | { type: 'TRANSITION_DRAG'; payload: { height: number } }
   | { type: 'DRAGGED' }
   | { type: 'CLOSE' }
   | { type: 'CLOSED' }
@@ -111,29 +113,19 @@ export const BottomSheetMachine =
               ],
               target: 'open',
             },
-            INITIALLY_OPEN: {
-              target: '#bs.open.initially',
-            },
           },
         },
         open: {
           initial: 'opening',
           states: {
-            initially: {
-              on: {
-                READY: {
-                  target: 'resting',
-                },
-              },
-            },
             opening: {
               initial: 'waiting',
               states: {
                 waiting: {
                   exit: 'setHeight',
                   on: {
-                    READY: {
-                      target: 'animating',
+                    TRANSITION_OPEN: {
+                      target: 'transition',
                     },
                     AUTOFOCUS: {
                       target: 'autofocusing',
@@ -143,12 +135,12 @@ export const BottomSheetMachine =
                 autofocusing: {
                   exit: 'setLastHeight',
                   on: {
-                    READY: {
-                      target: 'animating',
+                    TRANSITION_OPEN: {
+                      target: 'transition',
                     },
                   },
                 },
-                animating: {
+                transition: {
                   exit: 'setLastHeight',
                   on: {
                     OPENED: {
@@ -180,12 +172,26 @@ export const BottomSheetMachine =
               },
             },
             dragging: {
-              entry: 'setHeight',
-              exit: 'setLastHeight',
-              on: {
-                DRAGGED: {
-                  target: 'resting',
+              initial: 'gesture',
+              states: {
+                gesture: {
+                  on: {
+                    TRANSITION_DRAG: {
+                      target: 'transition',
+                    },
+                  },
                 },
+                transition: {
+                  entry: 'setHeight',
+                  exit: 'setLastHeight',
+                  on: {
+                    DRAGGED: {
+                      target: '#bs.open.resting',
+                    },
+                  },
+                },
+              },
+              on: {
                 SNAP: {
                   ...addDescription('redirect'),
                   target: 'snapping',
@@ -333,7 +339,7 @@ export const BottomSheetMachine =
             switch (event.type) {
               case 'CLOSE':
                 return 0
-              case 'DRAG':
+              case 'TRANSITION_DRAG':
               case 'RESIZE':
               case 'SNAP':
                 return snapPoints.length < 1
