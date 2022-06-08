@@ -257,6 +257,7 @@ export const BottomSheetMachine =
             'setMaxContent',
             'setSnapPoints',
             'setInitialHeight',
+            'setHeight',
           ],
         },
         SET_HEADER_HEIGHT: {
@@ -266,6 +267,7 @@ export const BottomSheetMachine =
             'setMaxContent',
             'setSnapPoints',
             'setInitialHeight',
+            'setHeight',
           ],
         },
         SET_CONTENT_HEIGHT: {
@@ -274,6 +276,7 @@ export const BottomSheetMachine =
             'setMaxContent',
             'setSnapPoints',
             'setInitialHeight',
+            'setHeight',
           ],
         },
         SET_FOOTER_HEIGHT: {
@@ -283,6 +286,7 @@ export const BottomSheetMachine =
             'setMaxContent',
             'setSnapPoints',
             'setInitialHeight',
+            'setHeight',
           ],
         },
       },
@@ -346,6 +350,16 @@ export const BottomSheetMachine =
                   ? 0
                   : computeSnapPointBounds(
                       event.payload.height,
+                      snapPoints as SnapPoints
+                    )[0]
+              case 'SET_MAX_HEIGHT':
+              case 'SET_HEADER_HEIGHT':
+              case 'SET_CONTENT_HEIGHT':
+              case 'SET_FOOTER_HEIGHT':
+                return context.height < 1
+                  ? 0
+                  : computeSnapPointBounds(
+                      context.height,
                       snapPoints as SnapPoints
                     )[0]
               default:

@@ -27,10 +27,18 @@ export interface Typegen0 {
       | 'SET_CONTENT_HEIGHT'
       | 'SET_FOOTER_HEIGHT'
       | 'OPEN'
+    setHeight:
+      | 'SET_MAX_HEIGHT'
+      | 'SET_HEADER_HEIGHT'
+      | 'SET_CONTENT_HEIGHT'
+      | 'SET_FOOTER_HEIGHT'
+      | 'TRANSITION_DRAG'
+      | 'RESIZE'
+      | 'SNAP'
+      | 'CLOSE'
     setHeaderHeight: 'SET_HEADER_HEIGHT'
     setContentHeight: 'SET_CONTENT_HEIGHT'
     setFooterHeight: 'SET_FOOTER_HEIGHT'
-    setHeight: 'TRANSITION_DRAG' | 'RESIZE' | 'SNAP' | 'CLOSE'
     setLastHeight: 'xstate.init'
   }
   internalEvents: {
