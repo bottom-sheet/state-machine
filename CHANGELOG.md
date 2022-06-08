@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/bottom-sheet/state-machine/compare/v1.1.0...v1.1.1) (2022-06-08)
+
+
+### Bug Fixes
+
+* correct height on resize ([b94569f](https://github.com/bottom-sheet/state-machine/commit/b94569fd9e1d3d266d407e77761683a6a70d0ee7))
+
 # [1.1.0](https://github.com/bottom-sheet/state-machine/compare/v1.0.11...v1.1.0) (2022-06-07)
 
 
