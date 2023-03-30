@@ -62,7 +62,7 @@
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
     "@skypack/package-check": "^0.2.2",
-    "@types/jest": "^28.1.4",
+    "@types/jest": "^29.0.0",
     "@types/node": "^18.0.3",
     "@xstate/cli": "^0.3.0",
     "eslint": "^8.19.0",
@@ -80,7 +80,7 @@
     "rimraf": "^3.0.2",
     "semantic-release": "^19.0.3",
     "ts-jest": "^28.0.5",
-    "typescript": "^4.7.4"
+    "typescript": "^5.0.0"
   },
   "publishConfig": {
     "access": "public"
