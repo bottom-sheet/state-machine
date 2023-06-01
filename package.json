@@ -78,7 +78,7 @@
     "prettier-plugin-packagejson": "^2.2.18",
     "replace-in-file": "^6.3.5",
     "rimraf": "^3.0.2",
-    "semantic-release": "^19.0.3",
+    "semantic-release": "^21.0.0",
     "ts-jest": "^28.0.5",
     "typescript": "^4.7.4"
   },
